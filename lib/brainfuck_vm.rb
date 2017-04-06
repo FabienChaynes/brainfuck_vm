@@ -13,7 +13,7 @@ class BrainfuckVM
 
   attr_reader :code, :input, :output
 
-  def initialize(code, input)
+  def initialize(code, input = '')
     @code = code
     @input = input.each_byte.to_a
     @output = ''
