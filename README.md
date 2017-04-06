@@ -19,9 +19,9 @@ A `BrainfuckVM` instance is initialized with two arguments:
 - a string with the sequence of machine instructions
 - a string, eventually empty, that will be interpreted as an array of bytes using each character's ASCII code and will be consumed by the `,` instruction
 
-The `BrainfuckVM#run` method will run the code and `BrainfuckVM#output` will return the output of the interpreted code (always as a string), produced by the `.` instruction.
+The `BrainfuckVM#run!` method will run the code and `BrainfuckVM#output` will return the output of the interpreted code (always as a string), produced by the `.` instruction.
 
 For example, the following code will return a string containing `"Hello World!\n"`:
 ```ruby
-BrainfuckVM.new('++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.', '').run.output
+BrainfuckVM.new('++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.', '').run!.output
 ```

@@ -18,7 +18,7 @@ class BrainfuckVM
     @instruction_pointer = 0
   end
 
-  def run
+  def run!
     while @instruction_pointer < @code.size
       tick
       @instruction_pointer += 1
