@@ -1,10 +1,13 @@
 class BrainfuckVM
 
+  OPENING_BRACKET = '['
+  CLOSING_BRACKET = ']'
+  BRACKETS = [OPENING_BRACKET, CLOSING_BRACKET]
   INSTRUCTION_SET = {
     '>' => :inc_dp, '<' => :dec_dp,
     '+' => :inc_current_dp_val, '-' => :dec_current_dp_val,
     '.' => :output_cur_dp_val, ',' => :feed_cur_dp_val,
-    '[' => :jump_right, ']' => :jump_left
+    OPENING_BRACKET => :jump_right, CLOSING_BRACKET => :jump_left
   }
   DATA_BYTES_RANGE = (0..255)
 
@@ -57,7 +60,12 @@ class BrainfuckVM
     @data[@data_pointer] = @input.shift
   end
 
-  def goto_matching_bracket(current_bracket, other_bracket, direction)
+  def goto_matching_bracket(current_bracket)
+    raise ArgumentError, "wrong current_bracket value" unless BRACKETS.include?(current_bracket)
+
+    other_bracket = current_bracket == OPENING_BRACKET ? CLOSING_BRACKET : OPENING_BRACKET
+    direction = current_bracket == OPENING_BRACKET ? 1 : -1
+
     other_brackets_count = 0
     while @code[@instruction_pointer] != other_bracket || other_brackets_count != 1
       other_brackets_count += 1 if @code[@instruction_pointer] == current_bracket
@@ -67,15 +75,11 @@ class BrainfuckVM
   end
 
   def jump_right
-    if @data[@data_pointer] == 0
-      goto_matching_bracket('[', ']', 1)
-    end
+    goto_matching_bracket(OPENING_BRACKET) if @data[@data_pointer] == 0
   end
 
   def jump_left
-    if @data[@data_pointer] != 0
-      goto_matching_bracket(']', '[', -1)
-    end
+    goto_matching_bracket(CLOSING_BRACKET) if @data[@data_pointer] != 0
   end
 
   def tick
