@@ -6,6 +6,7 @@ class BrainfuckVM
     '.' => :output_cur_dp_val, ',' => :feed_cur_dp_val,
     '[' => :jump_right, ']' => :jump_left
   }
+  DATA_BYTES_RANGE = (0..255)
 
   attr_reader :code, :input, :output
 
@@ -40,12 +41,12 @@ class BrainfuckVM
 
   def inc_current_dp_val
     @data[@data_pointer] += 1
-    @data[@data_pointer] = 0 if @data[@data_pointer] == 256
+    @data[@data_pointer] = DATA_BYTES_RANGE.first unless DATA_BYTES_RANGE.include?(@data[@data_pointer])
   end
 
   def dec_current_dp_val
     @data[@data_pointer] -= 1
-    @data[@data_pointer] = 255 if @data[@data_pointer] == -1
+    @data[@data_pointer] = DATA_BYTES_RANGE.last unless DATA_BYTES_RANGE.include?(@data[@data_pointer])
   end
 
   def output_cur_dp_val
