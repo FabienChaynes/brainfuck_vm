@@ -66,10 +66,10 @@ class BrainfuckVM
     other_bracket = current_bracket == OPENING_BRACKET ? CLOSING_BRACKET : OPENING_BRACKET
     direction = current_bracket == OPENING_BRACKET ? 1 : -1
 
-    other_brackets_count = 0
-    while @code[@instruction_pointer] != other_bracket || other_brackets_count != 1
-      other_brackets_count += 1 if @code[@instruction_pointer] == current_bracket
-      other_brackets_count -= 1 if @code[@instruction_pointer] == other_bracket
+    depth = 0
+    while @code[@instruction_pointer] != other_bracket || depth != 1
+      depth += 1 if @code[@instruction_pointer] == current_bracket
+      depth -= 1 if @code[@instruction_pointer] == other_bracket
       @instruction_pointer += direction
     end
   end
