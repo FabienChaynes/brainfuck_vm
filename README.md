@@ -23,5 +23,5 @@ The `BrainfuckVM#run!` method will run the code and `BrainfuckVM#output` will re
 
 For example, the following code will return a string containing `"Hello World!\n"`:
 ```ruby
-BrainfuckVM.new('++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.', '').run!.output
+BrainfuckVM.new('++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.').run!.output
 ```
